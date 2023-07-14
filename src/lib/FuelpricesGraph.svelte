@@ -51,7 +51,7 @@
 				labels: [...fuelprices].filter(daysFilter).map((f) => f['timestamp']),
 				datasets: [
 					{
-						label: 'Avanti',
+						label: 'Avanti St. Pölten',
 						backgroundColor: 'rgba(255, 205, 24, 0.05)',
 						borderColor: 'rgba(255, 205, 24, 1)',
 						pointBackgroundColor: 'rgba(255, 205, 24, 1)',
@@ -64,7 +64,7 @@
 						data: [...fuelprices].filter(daysFilter).map((f) => f['avanti'])
 					},
 					{
-						label: 'Jet',
+						label: 'Jet St. Pölten',
 						backgroundColor: 'rgba(7, 25, 252, 0.05)',
 						borderColor: 'rgba(7, 25, 252, 1)',
 						pointBackgroundColor: 'rgba(7, 25, 252, 1)',
