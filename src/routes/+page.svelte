@@ -43,14 +43,14 @@
 		@apply flex justify-between;
 
 		& > label {
-			@apply lg:m-4 w-full cursor-pointer flex-wrap rounded-xl bg-gray-50 lg:p-8 text-center lg:text-3xl transition-all m-1 p-2;
+			@apply m-1 w-full cursor-pointer flex-wrap rounded-xl bg-gray-50 px-2 py-4 text-center transition-all lg:m-4 lg:p-8 lg:text-3xl;
 
 			& > input {
 				@apply hidden;
 			}
 
 			&:has(> input:checked) {
-				@apply bg-gray-200;
+				@apply bg-gradient-to-br from-blue-600 to-blue-400 text-white;
 			}
 
 			&:active {
