@@ -21,12 +21,6 @@
 </main>
 
 <style lang="scss">
-	@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@700;800&display=swap');
-
-	* {
-		font-family: 'Raleway', sans-serif;
-	}
-
 	main {
 		@apply container mx-auto px-4 lg:max-w-5xl;
 	}

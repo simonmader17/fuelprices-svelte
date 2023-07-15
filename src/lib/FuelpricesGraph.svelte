@@ -25,6 +25,12 @@
 
 	export let fuelprices: any;
 	export let days: number;
+	$: minDays =
+		days == 0
+			? undefined
+			: new Date(new Date().getTime() - days * 24 * 60 * 60 * 1000).toLocaleString('en-US', {
+					timeZone: 'UTC'
+			  });
 
 	let ctx;
 	let chartCanvas: any;
@@ -50,7 +56,7 @@
 		chart = new Chart(ctx, {
 			type: 'line',
 			data: {
-				labels: [...fuelprices].filter(daysFilter).map((f) => f['timestamp']),
+				labels: [...fuelprices].map((f) => f['timestamp']),
 				datasets: [
 					{
 						label: 'Avanti St. Pölten',
@@ -63,7 +69,7 @@
 						pointRadius: 0,
 						pointHoverRadius: 3,
 						tension: 0.1,
-						data: [...fuelprices].filter(daysFilter).map((f) => f['avanti'])
+						data: [...fuelprices].map((f) => f['avanti'])
 					},
 					{
 						label: 'Jet St. Pölten',
@@ -76,7 +82,7 @@
 						pointRadius: 0,
 						pointHoverRadius: 3,
 						tension: 0.1,
-						data: [...fuelprices].filter(daysFilter).map((f) => f['jet'])
+						data: [...fuelprices].map((f) => f['jet'])
 					}
 				]
 			},
@@ -84,6 +90,7 @@
 				scales: {
 					x: {
 						type: 'time',
+						min: minDays,
 						grid: {
 							display: false
 						},
@@ -107,32 +114,17 @@
 	});
 
 	afterUpdate(() => {
-		chart.data.labels = [...fuelprices].filter(daysFilter).map((f) => f['timestamp']);
-		chart.data.datasets[0].data = [...fuelprices].filter(daysFilter).map((f) => f['avanti']);
-		chart.data.datasets[1].data = [...fuelprices].filter(daysFilter).map((f) => f['jet']);
+		chart.data.labels = [...fuelprices].map((f) => f['timestamp']);
+		chart.data.datasets[0].data = [...fuelprices].map((f) => f['avanti']);
+		chart.data.datasets[1].data = [...fuelprices].map((f) => f['jet']);
+		chart.options.scales.x.min = minDays;
 		chart.update();
 	});
 </script>
 
-<div class="justify-around flex">
-	<!-- <PriceChange
-		title="Avanti"
-		oldest={[...fuelprices].filter(daysFilter).map((f) => f['avanti'])[0]}
-		current={[...fuelprices].filter(daysFilter).map((f) => f['avanti']).at(-1)}
-	/>
-	<PriceChange
-		title="Jet"
-		oldest={[...fuelprices].filter(daysFilter).map((f) => f['jet'])[0]}
-		current={[...fuelprices].filter(daysFilter).map((f) => f['jet']).at(-1)}
-	/> -->
-	<PriceChange
-		title="Avanti"
-		data={[...fuelprices].filter(daysFilter)}
-	/>
-	<PriceChange
-		title="Jet"
-		data={[...fuelprices].filter(daysFilter)}
-	/>
+<div class="flex justify-around">
+	<PriceChange title="Avanti" data={[...fuelprices].filter(daysFilter)} />
+	<PriceChange title="Jet" data={[...fuelprices].filter(daysFilter)} />
 </div>
 
 <div>
