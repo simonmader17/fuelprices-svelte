@@ -25,12 +25,7 @@
 
 	export let fuelprices: any;
 	export let days: number;
-	$: minDays =
-		days == 0
-			? undefined
-			: new Date(new Date().getTime() - days * 24 * 60 * 60 * 1000).toLocaleString('en-US', {
-					timeZone: 'UTC'
-			  });
+	$: minDays = days == 0 ? undefined : new Date().getTime() - days * 24 * 60 * 60 * 1000;
 
 	let ctx;
 	let chartCanvas: any;
@@ -56,7 +51,6 @@
 		chart = new Chart(ctx, {
 			type: 'line',
 			data: {
-				labels: [...fuelprices].map((f) => f['timestamp']),
 				datasets: [
 					{
 						label: 'Avanti St. Pölten',
@@ -68,8 +62,12 @@
 						borderWidth: 2,
 						pointRadius: 0,
 						pointHoverRadius: 3,
-						tension: 0.1,
-						data: [...fuelprices].map((f) => f['avanti'])
+						data: [...fuelprices].map((f) => {
+							return {
+								x: new Date(f['timestamp']).getTime(),
+								y: parseFloat(f['avanti'])
+							};
+						})
 					},
 					{
 						label: 'Jet St. Pölten',
@@ -81,12 +79,18 @@
 						borderWidth: 2,
 						pointRadius: 0,
 						pointHoverRadius: 3,
-						tension: 0.1,
-						data: [...fuelprices].map((f) => f['jet'])
+						data: [...fuelprices].map((f) => {
+							return {
+								x: new Date(f['timestamp']).getTime(),
+								y: parseFloat(f['jet'])
+							};
+						})
 					}
 				]
 			},
 			options: {
+				parsing: false,
+				normalized: true,
 				scales: {
 					x: {
 						type: 'time',
@@ -99,6 +103,7 @@
 						}
 					},
 					y: {
+						type: 'linear',
 						border: {
 							display: false
 						},
@@ -108,15 +113,22 @@
 					}
 				},
 				aspectRatio: 3 / 2,
-				maintainAspectRatio: false
+				maintainAspectRatio: false,
+				plugins: {
+					decimation: {
+						enabled: true,
+						threshold: 1
+					}
+				},
+				animations: {
+					x: { duration: 0 },
+					y: { duration: 300, easing: 'easeOutBack' }
+				}
 			}
 		});
 	});
 
 	afterUpdate(() => {
-		chart.data.labels = [...fuelprices].map((f) => f['timestamp']);
-		chart.data.datasets[0].data = [...fuelprices].map((f) => f['avanti']);
-		chart.data.datasets[1].data = [...fuelprices].map((f) => f['jet']);
 		chart.options.scales.x.min = minDays;
 		chart.update();
 	});
