@@ -1,11 +1,13 @@
 <script lang="ts">
+	import PriceChange from './PriceChange.svelte';
+
 	import { afterUpdate, onMount } from 'svelte';
 	import Chart from 'chart.js/auto';
 	import 'chartjs-adapter-moment';
 
 	Chart.defaults.font.family = '"Inter", sans-serif';
 	Chart.defaults.font.weight = '500';
-	Chart.defaults.color = 'rgb(148, 163, 184)';
+	Chart.defaults.color = 'rgb(107 114 128)';
 	Chart.defaults.scale.grid.color = 'rgb(241, 245, 249)';
 	Chart.defaults.plugins.tooltip.titleColor = 'rgb(30, 41, 59)';
 	Chart.defaults.plugins.tooltip.bodyColor = 'rgb(30, 41, 59)';
@@ -111,6 +113,19 @@
 		chart.update();
 	});
 </script>
+
+<div class="justify-around flex">
+	<PriceChange
+		title="Avanti"
+		oldest={[...fuelprices].filter(daysFilter).map((f) => f['avanti'])[0]}
+		current={[...fuelprices].filter(daysFilter).map((f) => f['avanti']).at(-1)}
+	/>
+	<PriceChange
+		title="Jet"
+		oldest={[...fuelprices].filter(daysFilter).map((f) => f['jet'])[0]}
+		current={[...fuelprices].filter(daysFilter).map((f) => f['jet']).at(-1)}
+	/>
+</div>
 
 <div>
 	<canvas bind:this={chartCanvas} id="my-chart" class="w-full" />
