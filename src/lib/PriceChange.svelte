@@ -1,14 +1,19 @@
 <script lang="ts">
-	export let oldest: number;
-	export let current: number;
+	// export let oldest: number;
+	// export let current: number;
 	export let title: String;
+	export let data: any;
 
+	$: oldest = data.map((f: any) => f[`${title.toLowerCase()}`])[0];
+	$: current = data.map((f: any) => f[`${title.toLowerCase()}`]).at(-1);
 	$: change = current / oldest;
+
+	$: currentDate = new Date(data.map((f: any) => f["timestamp"]).at(-1))
 </script>
 
-<div>
+<div class="flex flex-col justify-center items-center">
 	<div class="flex items-center gap-1">
-		<p class="text-4xl">{current} €</p>
+		<p class="text-4xl">{current.toFixed(3)} €</p>
 		{#if change > 1}
 			<p class="text-sm text-green-600">+{((change - 1) * 100).toFixed(2)}%</p>
 		{:else if change < 1}
@@ -17,5 +22,8 @@
 			<p class="text-sm text-gray-600">0%</p>
 		{/if}
 	</div>
-    <p class="text-lg text-gray-500 text-center">{title}</p>
+	<p class="text-lg text-gray-500">{title} ({currentDate.toLocaleString("de", {
+		dateStyle: "short",
+		timeStyle: "short"
+	})})</p>
 </div>

@@ -115,7 +115,7 @@
 </script>
 
 <div class="justify-around flex">
-	<PriceChange
+	<!-- <PriceChange
 		title="Avanti"
 		oldest={[...fuelprices].filter(daysFilter).map((f) => f['avanti'])[0]}
 		current={[...fuelprices].filter(daysFilter).map((f) => f['avanti']).at(-1)}
@@ -124,6 +124,14 @@
 		title="Jet"
 		oldest={[...fuelprices].filter(daysFilter).map((f) => f['jet'])[0]}
 		current={[...fuelprices].filter(daysFilter).map((f) => f['jet']).at(-1)}
+	/> -->
+	<PriceChange
+		title="Avanti"
+		data={[...fuelprices].filter(daysFilter)}
+	/>
+	<PriceChange
+		title="Jet"
+		data={[...fuelprices].filter(daysFilter)}
 	/>
 </div>
 

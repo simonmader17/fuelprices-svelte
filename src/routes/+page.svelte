@@ -4,7 +4,7 @@
 	export let data: any;
 	let fuelprices = data.fuelprices;
 
-	let days: number = 30; // dirty solution for default value;
+	let days: number = 7; // dirty solution for default value;
 </script>
 
 <main>
