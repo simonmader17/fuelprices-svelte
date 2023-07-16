@@ -18,6 +18,17 @@
 		<label><input type="radio" bind:group={days} value={365} />Jahr</label>
 		<label><input type="radio" bind:group={days} value={0} />Gesamt</label>
 	</div>
+
+	<div class="flex justify-center">
+		<a
+			href="https://t.me/simonmader_fuelprices_bot"
+			target="_blank"
+			class="m-1 flex items-center gap-2 rounded-xl bg-gradient-to-br from-blue-300 to-[#2097D4] p-2 text-white drop-shadow-xl transition-all active:scale-90 lg:m-4 lg:p-4 lg:text-xl"
+		>
+			<img src="telegram.webp" alt="Telegram Logo" class="h-10 drop-shadow-xl lg:h-12" />
+			<p>Telegram Bot</p>
+		</a>
+	</div>
 </main>
 
 <style lang="scss">
@@ -37,7 +48,7 @@
 		@apply flex justify-between;
 
 		& > label {
-			@apply m-1 w-full cursor-pointer flex-wrap rounded-xl bg-gray-50 px-2 py-4 text-center transition-all lg:m-4 lg:p-8 lg:text-3xl;
+			@apply m-1 w-full cursor-pointer flex-wrap rounded-xl bg-gray-50 px-2 py-4 text-center drop-shadow transition-all lg:m-4 lg:p-8 lg:text-3xl;
 
 			& > input {
 				@apply hidden;
