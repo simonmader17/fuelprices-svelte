@@ -8,7 +8,6 @@
 		.find((p) => p != null);
 	$: change = current / oldest;
 
-	// $: currentDate = new Date(data.map((f: any) => f['timestamp']).at(-1));
 	$: currentDate = new Date(
 		[...data].reverse().find((f) => f[`${title.toLowerCase()}`] != null)['timestamp']
 	);
