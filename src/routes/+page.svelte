@@ -41,11 +41,11 @@
 	}
 
 	h1 {
-		@apply text-center text-6xl;
+		@apply text-center text-5xl lg:text-6xl;
 	}
 
 	.days-select {
-		@apply flex justify-between;
+		@apply flex select-none justify-between;
 
 		& > label {
 			@apply m-1 w-full cursor-pointer flex-wrap rounded-xl bg-gray-50 px-2 py-4 text-center drop-shadow transition-all lg:m-4 lg:p-8 lg:text-3xl;

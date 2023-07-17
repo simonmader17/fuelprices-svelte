@@ -43,7 +43,7 @@
 	let chart: any;
 
 	const formatCurrency = (value: any) => {
-		return value.toFixed(2) + ' €';
+		return value.toLocaleString('de', { style: 'currency', currency: 'EUR' });
 	};
 
 	onMount(() => {
@@ -100,6 +100,13 @@
 						},
 						border: {
 							display: false
+						},
+						ticks: {
+							callback: (value) => {
+								let date = new Date(value);
+								return date.toLocaleDateString('de', { dateStyle: 'medium' });
+							},
+							maxTicksLimit: 10
 						}
 					},
 					y: {
@@ -118,6 +125,23 @@
 					decimation: {
 						enabled: true,
 						threshold: 1
+					},
+					tooltip: {
+						callbacks: {
+							title: (context) => {
+								context[0].label = new Date(context[0].label).toLocaleString('de', {
+									dateStyle: 'long',
+									timeStyle: 'short'
+								});
+							},
+							label: (context) => {
+								context.formattedValue =
+									parseFloat(context.formattedValue).toLocaleString('de', {
+										minimumFractionDigits: 3,
+										maximumFractionDigits: 3
+									}) + ' €';
+							}
+						}
 					}
 				},
 				animations: {
