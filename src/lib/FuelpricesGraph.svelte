@@ -14,7 +14,7 @@
 	Chart.defaults.plugins.tooltip.backgroundColor = '#FFF';
 	Chart.defaults.plugins.tooltip.borderWidth = 1;
 	Chart.defaults.plugins.tooltip.borderColor = 'rgb(226, 232, 240)';
-	Chart.defaults.plugins.tooltip.displayColors = false;
+	Chart.defaults.plugins.tooltip.displayColors = true;
 	Chart.defaults.plugins.tooltip.mode = 'nearest';
 	Chart.defaults.plugins.tooltip.intersect = false;
 	Chart.defaults.plugins.tooltip.position = 'nearest';
@@ -128,18 +128,23 @@
 					},
 					tooltip: {
 						callbacks: {
-							title: (context) => {
-								context[0].label = new Date(context[0].label).toLocaleString('de', {
+							title: (tooltipItems) => {
+								let label = tooltipItems[0].label;
+								let formattedLabel = new Date(label).toLocaleString('de', {
 									dateStyle: 'long',
 									timeStyle: 'short'
 								});
+								return formattedLabel;
 							},
-							label: (context) => {
-								context.formattedValue =
-									parseFloat(context.formattedValue).toLocaleString('de', {
+							label: (tooltipItem) => {
+								let gasStation = tooltipItem.dataset.label;
+								let gasPrice = tooltipItem.parsed.y;
+								let formattedPrice =
+									gasPrice.toLocaleString('de', {
 										minimumFractionDigits: 3,
 										maximumFractionDigits: 3
 									}) + ' €';
+								return ' ' + gasStation + ': ' + formattedPrice;
 							}
 						}
 					}
@@ -156,6 +161,9 @@
 		chart.options.scales.x.min = minDays;
 		chart.update();
 	});
+
+	// let test1: any;
+	// let test2: any;
 </script>
 
 <div class="flex justify-around">
@@ -166,3 +174,7 @@
 <div>
 	<canvas bind:this={chartCanvas} id="my-chart" class="w-full" />
 </div>
+
+<!-- <p>{test1}</p>
+
+{test2} -->
