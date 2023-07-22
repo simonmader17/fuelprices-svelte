@@ -1,15 +1,16 @@
 <script lang="ts">
 	export let title: String;
+	export let label: String;
 	export let data: any;
 
-	$: oldest = [...data.map((f: any) => f[`${title.toLowerCase()}`])].find((p) => p != null);
-	$: current = [...data.map((f: any) => f[`${title.toLowerCase()}`])]
+	$: oldest = [...data.map((f: any) => f[`${label}`])].find((p) => p != null);
+	$: current = [...data.map((f: any) => f[`${label}`])]
 		.reverse()
 		.find((p) => p != null);
 	$: change = current / oldest;
 
 	$: currentDate = new Date(
-		[...data].reverse().find((f) => f[`${title.toLowerCase()}`] != null)['timestamp']
+		[...data].reverse().find((f) => f[`${label}`] != null)['timestamp']
 	);
 </script>
 

@@ -85,6 +85,40 @@
 								y: parseFloat(f['jet'])
 							};
 						})
+					},
+					{
+						label: 'Jet Langenrohr',
+						backgroundColor: 'rgba(7, 252, 25, 0.05)',
+						borderColor: 'rgba(7, 252, 25, 1)',
+						pointBackgroundColor: 'rgba(7, 252, 25, 1)',
+						fill: true,
+						spanGaps: true,
+						borderWidth: 2,
+						pointRadius: 0,
+						pointHoverRadius: 3,
+						data: [...fuelprices].map((f) => {
+							return {
+								x: new Date(f['timestamp']).getTime(),
+								y: parseFloat(f['jetLangenrohr'])
+							};
+						})
+					},
+					{
+						label: 'BP Böheimkirchen',
+						backgroundColor: 'rgba(255, 0, 0, 0.05)',
+						borderColor: 'rgba(255, 0, 0, 1)',
+						pointBackgroundColor: 'rgba(255, 0, 0, 1)',
+						fill: true,
+						spanGaps: true,
+						borderWidth: 2,
+						pointRadius: 0,
+						pointHoverRadius: 3,
+						data: [...fuelprices].map((f) => {
+							return {
+								x: new Date(f['timestamp']).getTime(),
+								y: parseFloat(f['bp'])
+							};
+						})
 					}
 				]
 			},
@@ -166,9 +200,15 @@
 	// let test2: any;
 </script>
 
-<div class="flex justify-around">
-	<PriceChange title="Avanti" data={[...fuelprices].filter(daysFilter)} />
-	<PriceChange title="Jet" data={[...fuelprices].filter(daysFilter)} />
+<div class="flex flex-wrap justify-around">
+	<PriceChange title="Avanti" label="avanti" data={[...fuelprices].filter(daysFilter)} />
+	<PriceChange title="Jet" label="jet" data={[...fuelprices].filter(daysFilter)} />
+	<PriceChange
+		title="Jet Langenrohr"
+		label="jetLangenrohr"
+		data={[...fuelprices].filter(daysFilter)}
+	/>
+	<PriceChange title="BP" label="bp" data={[...fuelprices].filter(daysFilter)} />
 </div>
 
 <div>
