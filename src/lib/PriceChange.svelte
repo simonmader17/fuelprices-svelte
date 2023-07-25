@@ -4,14 +4,10 @@
 	export let data: any;
 
 	$: oldest = [...data.map((f: any) => f[`${label}`])].find((p) => p != null);
-	$: current = [...data.map((f: any) => f[`${label}`])]
-		.reverse()
-		.find((p) => p != null);
+	$: current = [...data.map((f: any) => f[`${label}`])].reverse().find((p) => p != null);
 	$: change = current / oldest;
 
-	$: currentDate = new Date(
-		[...data].reverse().find((f) => f[`${label}`] != null)['timestamp']
-	);
+	$: currentDate = new Date([...data].reverse().find((f) => f[`${label}`] != null)['timestamp']);
 </script>
 
 <div class="flex flex-col items-center justify-center">
@@ -23,14 +19,16 @@
 			})} €
 		</p>
 		{#if change > 1}
-			<p class="text-xs text-red-600 lg:text-sm">
+			<p class="text-xs text-accent dark:text-accent-dark lg:text-sm">
+				<!--text-red-600-->
 				+{((change - 1) * 100).toLocaleString('de', {
 					minimumFractionDigits: 2,
 					maximumFractionDigits: 2
 				})}%
 			</p>
 		{:else if change < 1}
-			<p class="text-xs text-green-600 lg:text-sm">
+			<p class="text-xs text-primary dark:text-secondary-dark lg:text-sm">
+				<!--text-green-600-->
 				-{((1 - change) * 100).toLocaleString('de', {
 					minimumFractionDigits: 2,
 					maximumFractionDigits: 2

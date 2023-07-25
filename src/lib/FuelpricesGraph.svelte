@@ -2,13 +2,16 @@
 	import PriceChange from './PriceChange.svelte';
 
 	import { afterUpdate, onMount } from 'svelte';
+	import { page } from '$app/stores';
 	import Chart from 'chart.js/auto';
 	import 'chartjs-adapter-moment';
 
-	Chart.defaults.font.family = '"Inter", sans-serif';
+	export let darkMode: boolean;
+	const tailwindConfig = $page.data.tailwindConfig;
+
+	Chart.defaults.font.family = '"Raleway", sans-serif';
 	Chart.defaults.font.weight = '500';
 	Chart.defaults.color = 'rgb(107 114 128)';
-	Chart.defaults.scale.grid.color = 'rgb(241, 245, 249)';
 	Chart.defaults.plugins.tooltip.titleColor = 'rgb(30, 41, 59)';
 	Chart.defaults.plugins.tooltip.bodyColor = 'rgb(30, 41, 59)';
 	Chart.defaults.plugins.tooltip.backgroundColor = '#FFF';
@@ -47,6 +50,7 @@
 	};
 
 	onMount(() => {
+		darkMode = document.documentElement.classList.contains('dark');
 		ctx = chartCanvas.getContext('2d');
 		chart = new Chart(ctx, {
 			type: 'line',
@@ -87,27 +91,10 @@
 						})
 					},
 					{
-						label: 'Jet Langenrohr',
-						backgroundColor: 'rgba(7, 252, 25, 0.05)',
-						borderColor: 'rgba(7, 252, 25, 1)',
-						pointBackgroundColor: 'rgba(7, 252, 25, 1)',
-						fill: true,
-						spanGaps: true,
-						borderWidth: 2,
-						pointRadius: 0,
-						pointHoverRadius: 3,
-						data: [...fuelprices].map((f) => {
-							return {
-								x: new Date(f['timestamp']).getTime(),
-								y: parseFloat(f['jetLangenrohr'])
-							};
-						})
-					},
-					{
 						label: 'BP Böheimkirchen',
-						backgroundColor: 'rgba(255, 0, 0, 0.05)',
-						borderColor: 'rgba(255, 0, 0, 1)',
-						pointBackgroundColor: 'rgba(255, 0, 0, 1)',
+						backgroundColor: 'rgba(112, 87, 0, 0.05)',
+						borderColor: 'rgba(112, 87, 0, 1)',
+						pointBackgroundColor: 'rgba(112, 87, 0, 1)',
 						fill: true,
 						spanGaps: true,
 						borderWidth: 2,
@@ -117,6 +104,23 @@
 							return {
 								x: new Date(f['timestamp']).getTime(),
 								y: parseFloat(f['bp'])
+							};
+						})
+					},
+					{
+						label: 'Jet Langenrohr',
+						backgroundColor: 'rgba(131, 140, 253, 0.05)',
+						borderColor: 'rgba(131, 140, 253, 1)',
+						pointBackgroundColor: 'rgba(131, 140, 253, 1)',
+						fill: true,
+						spanGaps: true,
+						borderWidth: 2,
+						pointRadius: 0,
+						pointHoverRadius: 3,
+						data: [...fuelprices].map((f) => {
+							return {
+								x: new Date(f['timestamp']).getTime(),
+								y: parseFloat(f['jetLangenrohr'])
 							};
 						})
 					}
@@ -147,6 +151,11 @@
 						type: 'linear',
 						border: {
 							display: false
+						},
+						grid: {
+							color: darkMode
+								? tailwindConfig.theme.colors['grid-dark']
+								: tailwindConfig.theme.colors['grid']
 						},
 						ticks: {
 							callback: (value) => formatCurrency(value)
@@ -192,15 +201,18 @@
 	});
 
 	afterUpdate(() => {
+		// chart styles
+		chart.options.scales.y.grid.color = darkMode
+			? tailwindConfig.theme.colors['grid-dark']
+			: tailwindConfig.theme.colors['grid'];
+
+		// x axis min
 		chart.options.scales.x.min = minDays;
 		chart.update();
 	});
-
-	// let test1: any;
-	// let test2: any;
 </script>
 
-<div class="flex flex-wrap justify-around">
+<div class="my-4 flex flex-wrap justify-around">
 	<PriceChange title="Avanti" label="avanti" data={[...fuelprices].filter(daysFilter)} />
 	<PriceChange title="Jet" label="jet" data={[...fuelprices].filter(daysFilter)} />
 	<PriceChange
@@ -211,10 +223,6 @@
 	<PriceChange title="BP" label="bp" data={[...fuelprices].filter(daysFilter)} />
 </div>
 
-<div>
+<div class="my-4">
 	<canvas bind:this={chartCanvas} id="my-chart" class="w-full" />
 </div>
-
-<!-- <p>{test1}</p>
-
-{test2} -->

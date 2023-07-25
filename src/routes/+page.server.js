@@ -1,4 +1,7 @@
 /** @type {import('./$types').PageServerLoad} */
+import resolveConfig from 'tailwindcss/resolveConfig';
+import configFile from '../../tailwind.config';
+
 export async function load({ params }) {
 	let fuelprices;
 
@@ -20,5 +23,7 @@ export async function load({ params }) {
 				])
 		);
 
-	return { fuelprices };
+	const tailwindConfig = resolveConfig(configFile);
+
+	return { fuelprices, tailwindConfig };
 }
