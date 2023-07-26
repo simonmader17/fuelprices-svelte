@@ -40,7 +40,6 @@
 	</div>
 	<p class="text-gray-500 lg:text-lg">
 		{title} ({currentDate.toLocaleString('de', {
-			dateStyle: 'short',
 			timeStyle: 'short'
 		})})
 	</p>

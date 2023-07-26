@@ -154,7 +154,7 @@
 						},
 						grid: {
 							color: darkMode
-								? tailwindConfig.theme.colors['grid-dark']
+								? tailwindConfig.theme.colors['accent-dark']
 								: tailwindConfig.theme.colors['grid']
 						},
 						ticks: {
@@ -190,6 +190,28 @@
 								return ' ' + gasStation + ': ' + formattedPrice;
 							}
 						}
+					},
+					legend: {
+						labels: {
+							generateLabels: (chart) => {
+								return chart.data.datasets.map((dataset, index) => ({
+									text: dataset.label,
+									borderRadius: 5,
+									datasetIndex: index,
+									fillStyle: dataset.borderColor,
+									fontColor: dataset.borderColor,
+									hidden: !chart.isDatasetVisible(index),
+									// lineCap: 'null',
+									// lineDash: [],
+									// lineDashOffset: 0,
+									// lineJoin: 'null',
+									// lineWidth: 0,
+									strokeStyle: 'black'
+									// pointStyle: 'circle',
+									// rotation: 0
+								}));
+							}
+						}
 					}
 				},
 				animations: {
@@ -203,7 +225,7 @@
 	afterUpdate(() => {
 		// chart styles
 		chart.options.scales.y.grid.color = darkMode
-			? tailwindConfig.theme.colors['grid-dark']
+			? tailwindConfig.theme.colors['background-dark']
 			: tailwindConfig.theme.colors['grid'];
 
 		// x axis min
@@ -212,7 +234,7 @@
 	});
 </script>
 
-<div class="my-4 flex flex-wrap justify-around">
+<div class="my-2 flex flex-wrap justify-around lg:my-4">
 	<PriceChange title="Avanti" label="avanti" data={[...fuelprices].filter(daysFilter)} />
 	<PriceChange title="Jet" label="jet" data={[...fuelprices].filter(daysFilter)} />
 	<PriceChange
@@ -223,6 +245,6 @@
 	<PriceChange title="BP" label="bp" data={[...fuelprices].filter(daysFilter)} />
 </div>
 
-<div class="my-4">
+<div class="my-2 rounded-xl bg-background p-4 drop-shadow-xl dark:bg-grid-dark lg:my-4">
 	<canvas bind:this={chartCanvas} id="my-chart" class="w-full" />
 </div>

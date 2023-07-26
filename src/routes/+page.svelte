@@ -13,7 +13,6 @@
 	};
 
 	onMount(() => {
-		console.log('TESTESTSET');
 		darkMode = document.documentElement.classList.contains('dark');
 	});
 </script>
@@ -78,18 +77,18 @@
 	}
 
 	main > * {
-		@apply my-4;
+		@apply my-2 lg:my-4;
 	}
 
 	h1 {
-		@apply inline-block bg-gradient-to-br from-primary to-accent bg-clip-text text-center text-5xl font-[800] text-transparent dark:from-secondary-dark dark:to-accent-dark lg:text-7xl;
+		@apply inline-block bg-gradient-to-br from-primary to-accent bg-clip-text text-center text-5xl font-[800] text-transparent drop-shadow-lg dark:from-secondary-dark dark:to-accent-dark lg:text-7xl;
 	}
 
 	.days-select {
-		@apply flex select-none justify-between;
+		@apply flex select-none justify-between gap-2 lg:gap-4;
 
 		& > label {
-			@apply m-1 w-full cursor-pointer flex-wrap rounded-xl bg-background px-2 py-4 text-center drop-shadow-xl transition-all dark:bg-background-dark dark:shadow-xl lg:m-4 lg:p-8 lg:text-3xl;
+			@apply w-full cursor-pointer flex-wrap rounded-xl bg-background px-2 py-4 text-center drop-shadow-xl transition-all dark:bg-grid-dark dark:shadow-xl lg:p-8 lg:text-3xl;
 
 			& > input {
 				@apply hidden;
