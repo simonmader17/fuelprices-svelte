@@ -18,9 +18,6 @@
 	Chart.defaults.plugins.tooltip.borderWidth = 1;
 	Chart.defaults.plugins.tooltip.borderColor = 'rgb(226, 232, 240)';
 	Chart.defaults.plugins.tooltip.displayColors = true;
-	Chart.defaults.plugins.tooltip.mode = 'nearest';
-	Chart.defaults.plugins.tooltip.intersect = false;
-	Chart.defaults.plugins.tooltip.position = 'nearest';
 	Chart.defaults.plugins.tooltip.caretSize = 0;
 	Chart.defaults.plugins.tooltip.caretPadding = 20;
 	Chart.defaults.plugins.tooltip.cornerRadius = 4;
@@ -170,6 +167,9 @@
 						threshold: 1
 					},
 					tooltip: {
+						mode: 'index',
+						axis: 'x',
+						intersect: false,
 						callbacks: {
 							title: (tooltipItems) => {
 								let label = tooltipItems[0].label;
