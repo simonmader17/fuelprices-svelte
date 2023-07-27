@@ -63,9 +63,9 @@
 		<a
 			href="https://t.me/simonmader_fuelprices_bot"
 			target="_blank"
-			class="m-1 flex items-center gap-2 rounded-xl bg-gradient-to-br from-blue-300 to-[#2097D4] p-2 text-white shadow-lg shadow-blue-400 drop-shadow-xl transition-all active:scale-90 lg:m-4 lg:p-4 lg:text-xl"
+			class="m-1 flex items-center gap-2 rounded-xl bg-gradient-to-br from-blue-300 to-[#2097D4] p-2 text-white shadow-lg shadow-blue-400 drop-shadow-xl transition-all active:scale-90 md:m-4 md:p-4 md:text-xl"
 		>
-			<img src="telegram.webp" alt="Telegram Logo" class="h-10 drop-shadow-xl lg:h-12" />
+			<img src="telegram.webp" alt="Telegram Logo" class="h-10 drop-shadow-xl md:h-12" />
 			<p>Telegram Bot</p>
 		</a>
 	</div>
@@ -73,22 +73,22 @@
 
 <style lang="scss">
 	main {
-		@apply container relative mx-auto px-4 lg:max-w-5xl;
+		@apply container relative mx-auto px-4 md:max-w-3xl;
 	}
 
 	main > * {
-		@apply my-2 lg:my-4;
+		@apply my-2 md:my-4;
 	}
 
 	h1 {
-		@apply inline-block bg-gradient-to-br from-primary to-accent bg-clip-text text-center text-5xl font-[800] text-transparent drop-shadow-lg dark:from-secondary-dark dark:to-accent-dark lg:text-7xl;
+		@apply inline-block bg-gradient-to-br from-primary to-accent bg-clip-text text-center text-5xl font-[800] text-transparent drop-shadow-lg dark:from-secondary-dark dark:to-accent-dark md:text-7xl;
 	}
 
 	.days-select {
-		@apply flex select-none justify-between gap-2 lg:gap-4;
+		@apply flex select-none justify-between gap-2 md:gap-4;
 
 		& > label {
-			@apply w-full cursor-pointer flex-wrap rounded-xl bg-background px-2 py-4 text-center drop-shadow-xl transition-all dark:bg-grid-dark dark:shadow-xl lg:p-8 lg:text-3xl;
+			@apply w-full cursor-pointer flex-wrap rounded-xl bg-background px-2 py-4 text-center drop-shadow-xl transition-all dark:bg-grid-dark dark:shadow-xl md:p-8 md:text-2xl;
 
 			& > input {
 				@apply hidden;

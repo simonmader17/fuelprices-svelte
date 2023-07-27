@@ -160,7 +160,8 @@
 					}
 				},
 				aspectRatio: 3 / 2,
-				maintainAspectRatio: false,
+				maintainAspectRatio: true,
+				responsive: true,
 				plugins: {
 					decimation: {
 						enabled: true,
@@ -234,7 +235,7 @@
 	});
 </script>
 
-<div class="my-2 flex flex-wrap justify-around lg:my-4">
+<div class="my-2 flex flex-wrap justify-around md:my-4">
 	<PriceChange title="Avanti" label="avanti" data={[...fuelprices].filter(daysFilter)} />
 	<PriceChange title="Jet" label="jet" data={[...fuelprices].filter(daysFilter)} />
 	<PriceChange
@@ -245,6 +246,8 @@
 	<PriceChange title="BP" label="bp" data={[...fuelprices].filter(daysFilter)} />
 </div>
 
-<div class="my-2 rounded-xl bg-background p-4 drop-shadow-xl dark:bg-grid-dark lg:my-4">
+<div class="my-2 rounded-xl bg-background p-4 drop-shadow-xl dark:bg-grid-dark md:my-4">
 	<canvas bind:this={chartCanvas} id="my-chart" class="w-full" />
 </div>
+
+<svelte:window on:resize={() => chart.resize()} />
