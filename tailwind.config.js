@@ -4,17 +4,15 @@ export default {
 	theme: {
 		extend: {
 			colors: {
-				foreground: '#000000',
-				background: '#fdfcf1',
-				primary: '#588ee4',
-				secondary: '#ffdc20',
-				accent: '#1937e1',
-				grid: '#f4eeb0',
+				foreground: '#171717',
+				background: '#ffcd18',
+				primary: '#2354db',
+				secondary: '#0c0a91',
+				grid: '#ffffff',
 				'foreground-dark': '#e7f0fe',
 				'background-dark': '#031430',
-				'primary-dark': '#588ee4',
-				'secondary-dark': '#ffd313',
-				'accent-dark': '#de8e0d',
+				'primary-dark': '#ffd313',
+				'secondary-dark': '#de8e0d',
 				'grid-dark': '#072f71'
 			}
 		}

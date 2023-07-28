@@ -19,7 +19,7 @@
 			})} €
 		</p>
 		{#if change > 1}
-			<p class="text-xs text-accent dark:text-accent-dark md:text-sm">
+			<p class="text-xs font-[800] text-secondary dark:text-secondary-dark md:text-sm">
 				<!--text-red-600-->
 				+{((change - 1) * 100).toLocaleString('de', {
 					minimumFractionDigits: 2,
@@ -27,7 +27,7 @@
 				})}%
 			</p>
 		{:else if change < 1}
-			<p class="text-xs text-primary dark:text-secondary-dark md:text-sm">
+			<p class="text-xs font-[800] text-primary dark:text-primary-dark md:text-sm">
 				<!--text-green-600-->
 				-{((1 - change) * 100).toLocaleString('de', {
 					minimumFractionDigits: 2,
@@ -35,7 +35,7 @@
 				})}%
 			</p>
 		{:else}
-			<p class="text-xs text-gray-600 md:text-sm">0%</p>
+			<p class="text-xs font-[800] text-gray-600 md:text-sm">0%</p>
 		{/if}
 	</div>
 	<p class="text-gray-500 md:text-lg">

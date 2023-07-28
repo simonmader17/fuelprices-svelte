@@ -81,21 +81,21 @@
 	}
 
 	h1 {
-		@apply inline-block bg-gradient-to-br from-primary to-accent bg-clip-text text-center text-5xl font-[800] text-transparent drop-shadow-lg dark:from-secondary-dark dark:to-accent-dark md:text-7xl;
+		@apply inline-block bg-gradient-to-br from-primary to-secondary bg-clip-text text-center text-5xl font-[800] text-transparent  drop-shadow-lg dark:from-primary-dark dark:to-secondary-dark md:text-7xl;
 	}
 
 	.days-select {
 		@apply flex select-none justify-between gap-2 md:gap-4;
 
 		& > label {
-			@apply w-full cursor-pointer flex-wrap rounded-xl bg-background px-2 py-4 text-center drop-shadow-xl transition-all dark:bg-grid-dark dark:shadow-xl md:p-8 md:text-2xl;
+			@apply w-full cursor-pointer flex-wrap rounded-xl bg-grid px-2 py-4 text-center drop-shadow-xl transition-all dark:bg-grid-dark dark:shadow-xl md:p-8 md:text-2xl;
 
 			& > input {
 				@apply hidden;
 			}
 
 			&:has(> input:checked) {
-				@apply bg-gradient-to-br from-primary to-accent font-[800] text-background shadow-xl shadow-accent/40 dark:from-secondary-dark dark:to-accent-dark dark:text-background-dark dark:shadow-accent-dark/40;
+				@apply bg-gradient-to-br from-primary to-secondary font-[800] text-grid shadow-xl shadow-secondary/40 dark:from-primary-dark dark:to-secondary-dark dark:text-background-dark dark:shadow-secondary-dark/40;
 			}
 
 			&:active {

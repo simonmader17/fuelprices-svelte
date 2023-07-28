@@ -151,8 +151,8 @@
 						},
 						grid: {
 							color: darkMode
-								? tailwindConfig.theme.colors['accent-dark']
-								: tailwindConfig.theme.colors['grid']
+								? tailwindConfig.theme.colors['background-dark']
+								: tailwindConfig.theme.colors['background']
 						},
 						ticks: {
 							callback: (value) => formatCurrency(value)
@@ -227,7 +227,7 @@
 		// chart styles
 		chart.options.scales.y.grid.color = darkMode
 			? tailwindConfig.theme.colors['background-dark']
-			: tailwindConfig.theme.colors['grid'];
+			: tailwindConfig.theme.colors['background'];
 
 		// x axis min
 		chart.options.scales.x.min = minDays;
@@ -246,7 +246,7 @@
 	<PriceChange title="BP" label="bp" data={[...fuelprices].filter(daysFilter)} />
 </div>
 
-<div class="my-2 rounded-xl bg-background p-4 drop-shadow-xl dark:bg-grid-dark md:my-4">
+<div class="my-2 rounded-xl bg-grid p-4 drop-shadow-xl dark:bg-grid-dark md:my-4">
 	<canvas bind:this={chartCanvas} id="my-chart" class="w-full" />
 </div>
 
