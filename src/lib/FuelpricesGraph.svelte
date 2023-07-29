@@ -235,15 +235,15 @@
 	});
 </script>
 
-<div class="my-2 flex flex-wrap justify-around md:my-4">
-	<PriceChange title="Avanti" label="avanti" data={[...fuelprices].filter(daysFilter)} />
-	<PriceChange title="Jet" label="jet" data={[...fuelprices].filter(daysFilter)} />
+<div class="my-2 md:my-4 grid grid-cols-2 md:grid-cols-4">
+	<PriceChange title="Avanti St. Pölten" label="avanti" data={[...fuelprices].filter(daysFilter)} />
+	<PriceChange title="Jet St. Pölten" label="jet" data={[...fuelprices].filter(daysFilter)} />
 	<PriceChange
 		title="Jet Langenrohr"
 		label="jetLangenrohr"
 		data={[...fuelprices].filter(daysFilter)}
 	/>
-	<PriceChange title="BP" label="bp" data={[...fuelprices].filter(daysFilter)} />
+	<PriceChange title="BP Böheimkirchen" label="bp" data={[...fuelprices].filter(daysFilter)} />
 </div>
 
 <div class="my-2 rounded-xl bg-grid p-4 drop-shadow-xl dark:bg-grid-dark md:my-4">
