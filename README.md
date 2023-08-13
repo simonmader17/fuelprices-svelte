@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="https://play.google.com/store/apps/details?id=at.simonmader.blur_fit">
+  <a href="https://fuelprices.simonmader.at/">
     <img src="https://img.shields.io/badge/Fuelprices-Website-yellow?logo=brave&logoColor=yellow" alt="Fuelprices" />
   </a>
   <a href="https://simonmader.at/">
@@ -29,4 +29,3 @@ The [backend](https://github.com/simonmader17/fuelprices-api) is a Java Spring R
 Additionally, I wrote a [Telegram bot](https://github.com/simonmader17/fuelprices-bot) that you can ask for the latest prices and it will notify you of new weekly/monthly lows.
 
 ![Readme Banner](static/banner.png)
-
