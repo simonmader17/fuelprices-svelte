@@ -1,38 +1,32 @@
-# create-svelte
+<p align="center">
+  <img src="static/logo.png" width="200" alt="Fuelprices Icon" /><br/>
+</p>
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+<p align="center">
+  <a href="https://play.google.com/store/apps/details?id=at.simonmader.blur_fit">
+    <img src="https://img.shields.io/badge/Fuelprices-Website-yellow?logo=brave&logoColor=yellow" alt="Fuelprices" />
+  </a>
+  <a href="https://simonmader.at/">
+    <img src="https://img.shields.io/badge/simonmader.at-Website-orange?logo=brave&logoColor=orange" alt="Website" />
+  </a>
+  <a href="mailto:mail@simonmader.at">  
+    <img src="https://img.shields.io/badge/mail%40simonmader.at-E--Mail-red?logo=gmail&logoColor=red" alt="E-Mail" />
+  </a>
+  <a href="https://www.linkedin.com/in/simonmader/">  
+    <img src="https://img.shields.io/badge/simonmader-LinkedIn-blue?logo=linkedin&logoColor=blue" alt="LinkedIn" />
+  </a>
+  <a href="https://github.com/simonmader17">  
+    <img src="https://img.shields.io/badge/simonmader17-GitHub-lightgray?logo=github&logoColor=lightgray" alt="GitHub" />
+  </a>
+</p>
 
-## Creating a project
+## Description
 
-If you're seeing this, you've probably already done this step. Congrats!
+My Fuelprices application consists of a Python webscraper that reads the current fuel prices of the Avanti and Jet gas stations in St. Pölten every hour and stores them in a PostgreSQL database.
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+The [backend](https://github.com/simonmader17/fuelprices-api) is a Java Spring RESTful web service and the frontend I implemented with Svelte.
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+Additionally, I wrote a [Telegram bot](https://github.com/simonmader17/fuelprices-bot) that you can ask for the latest prices and it will notify you of new weekly/monthly lows.
 
-## Developing
+![Readme Banner](static/banner.png)
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
