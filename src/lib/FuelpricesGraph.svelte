@@ -235,7 +235,7 @@
 	});
 </script>
 
-<div class="my-2 md:my-4 grid grid-cols-2 md:grid-cols-4">
+<div class="my-2 grid grid-cols-2 md:my-4 md:grid-cols-4">
 	<PriceChange title="Avanti St. Pölten" label="avanti" data={[...fuelprices].filter(daysFilter)} />
 	<PriceChange title="Jet St. Pölten" label="jet" data={[...fuelprices].filter(daysFilter)} />
 	<PriceChange
@@ -246,8 +246,12 @@
 	<PriceChange title="BP Böheimkirchen" label="bp" data={[...fuelprices].filter(daysFilter)} />
 </div>
 
-<div class="my-2 rounded-xl bg-grid p-4 drop-shadow-xl dark:bg-grid-dark md:my-4">
-	<canvas bind:this={chartCanvas} id="my-chart" class="w-full" />
+<div class="ml-2 mt-2 rounded-lg bg-secondary-dark dark:bg-black">
+	<div
+		class="my-2 -translate-x-2 -translate-y-2 rounded-lg border-4 border-secondary-dark bg-grid p-4 dark:bg-grid-dark md:my-4 dark:border-black"
+	>
+		<canvas bind:this={chartCanvas} id="my-chart" class="w-full" />
+	</div>
 </div>
 
 <svelte:window on:resize={() => chart.resize()} />

@@ -52,11 +52,39 @@
 
 	<FuelpricesGraph {fuelprices} {days} {darkMode} />
 
-	<div class="days-select">
-		<label><input type="radio" bind:group={days} value={7} />Woche</label>
-		<label><input type="radio" bind:group={days} value={30} />Monat</label>
-		<label><input type="radio" bind:group={days} value={365} />Jahr</label>
-		<label><input type="radio" bind:group={days} value={0} />Gesamt</label>
+	<div class="flex select-none justify-between gap-2 md:gap-4">
+		<label
+			class="group ml-2 mt-2 flex w-full cursor-pointer rounded-lg bg-secondary-dark transition-all dark:bg-black [&:has(>input:checked)]:bg-secondary dark:[&:has(>input:checked)]:bg-secondary-dark"
+			><input class="hidden" type="radio" bind:group={days} value={7} />
+			<span
+				class="inline-block w-full -translate-x-2 -translate-y-2 rounded-lg border-4 border-secondary-dark bg-grid px-2 py-4 md:text-2xl text-center transition-all group-hover:-translate-x-1 group-hover:-translate-y-1 group-[&:has(>input:checked)]:border-secondary group-[&:has(>input:checked)]:bg-primary group-[&:has(>input:checked)]:text-white dark:border-black dark:bg-grid-dark dark:group-[&:has(>input:checked)]:border-secondary-dark dark:group-[&:has(>input:checked)]:bg-primary-dark dark:group-[&:has(>input:checked)]:text-black"
+				>Woche</span
+			>
+		</label>
+		<label
+			class="group ml-2 mt-2 flex w-full cursor-pointer rounded-lg bg-secondary-dark transition-all dark:bg-black [&:has(>input:checked)]:bg-secondary dark:[&:has(>input:checked)]:bg-secondary-dark"
+			><input class="hidden" type="radio" bind:group={days} value={30} />
+			<span
+				class="inline-block w-full -translate-x-2 -translate-y-2 rounded-lg border-4 border-secondary-dark bg-grid px-2 py-4 md:text-2xl text-center transition-all group-hover:-translate-x-1 group-hover:-translate-y-1 group-[&:has(>input:checked)]:border-secondary group-[&:has(>input:checked)]:bg-primary group-[&:has(>input:checked)]:text-white dark:border-black dark:bg-grid-dark dark:group-[&:has(>input:checked)]:border-secondary-dark dark:group-[&:has(>input:checked)]:bg-primary-dark dark:group-[&:has(>input:checked)]:text-black"
+				>Monat</span
+			>
+		</label>
+		<label
+			class="group ml-2 mt-2 flex w-full cursor-pointer rounded-lg bg-secondary-dark transition-all dark:bg-black [&:has(>input:checked)]:bg-secondary dark:[&:has(>input:checked)]:bg-secondary-dark"
+			><input class="hidden" type="radio" bind:group={days} value={365} />
+			<span
+				class="inline-block w-full -translate-x-2 -translate-y-2 rounded-lg border-4 border-secondary-dark bg-grid px-2 py-4 md:text-2xl text-center transition-all group-hover:-translate-x-1 group-hover:-translate-y-1 group-[&:has(>input:checked)]:border-secondary group-[&:has(>input:checked)]:bg-primary group-[&:has(>input:checked)]:text-white dark:border-black dark:bg-grid-dark dark:group-[&:has(>input:checked)]:border-secondary-dark dark:group-[&:has(>input:checked)]:bg-primary-dark dark:group-[&:has(>input:checked)]:text-black"
+				>Jahr</span
+			>
+		</label>
+		<label
+			class="group ml-2 mt-2 flex w-full cursor-pointer rounded-lg bg-secondary-dark transition-all dark:bg-black [&:has(>input:checked)]:bg-secondary dark:[&:has(>input:checked)]:bg-secondary-dark"
+			><input class="hidden" type="radio" bind:group={days} value={0} />
+			<span
+				class="inline-block w-full -translate-x-2 -translate-y-2 rounded-lg border-4 border-secondary-dark bg-grid px-2 py-4 md:text-2xl text-center transition-all group-hover:-translate-x-1 group-hover:-translate-y-1 group-[&:has(>input:checked)]:border-secondary group-[&:has(>input:checked)]:bg-primary group-[&:has(>input:checked)]:text-white dark:border-black dark:bg-grid-dark dark:group-[&:has(>input:checked)]:border-secondary-dark dark:group-[&:has(>input:checked)]:bg-primary-dark dark:group-[&:has(>input:checked)]:text-black"
+				>Gesamt</span
+			>
+		</label>
 	</div>
 
 	<div class="flex justify-center">
@@ -84,23 +112,28 @@
 		@apply inline-block bg-gradient-to-br from-primary to-secondary bg-clip-text text-center text-5xl font-[800] text-transparent  drop-shadow-lg dark:from-primary-dark dark:to-secondary-dark md:text-7xl;
 	}
 
-	.days-select {
-		@apply flex select-none justify-between gap-2 md:gap-4;
+	// .days-select {
+	// 	@apply flex select-none justify-between gap-2 md:gap-4;
 
-		& > label {
-			@apply w-full cursor-pointer flex-wrap rounded-xl bg-grid px-2 py-4 text-center drop-shadow-xl transition-all dark:bg-grid-dark dark:shadow-xl md:p-8 md:text-2xl;
+	// 	& > label {
+	// 		@apply w-full cursor-pointer flex-wrap rounded-xl bg-grid px-2 py-4 text-center drop-shadow-xl transition-all dark:bg-grid-dark dark:shadow-xl md:p-8 md:text-2xl border-4 border-secondary-dark relative [translate-3d:];
 
-			& > input {
-				@apply hidden;
-			}
+	// 		&::after {
+	// 			@apply absolute w-full h-full bg-green-500 left-2 top-2 -z-10;
+	// 			content: '';
+	// 		}
 
-			&:has(> input:checked) {
-				@apply bg-gradient-to-br from-primary to-secondary font-[800] text-grid shadow-xl shadow-secondary/40 dark:from-primary-dark dark:to-secondary-dark dark:text-background-dark dark:shadow-secondary-dark/40;
-			}
+	// 		& > input {
+	// 			@apply hidden;
+	// 		}
 
-			&:active {
-				@apply scale-90;
-			}
-		}
-	}
+	// 		&:has(> input:checked) {
+	// 			@apply bg-gradient-to-br from-primary to-secondary font-[800] text-grid shadow-xl shadow-secondary/40 dark:from-primary-dark dark:to-secondary-dark dark:text-background-dark dark:shadow-secondary-dark/40;
+	// 		}
+
+	// 		// &:active {
+	// 		// 	@apply scale-90;
+	// 		// }
+	// 	}
+	// }
 </style>
