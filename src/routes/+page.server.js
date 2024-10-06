@@ -5,7 +5,7 @@ import configFile from '../../tailwind.config';
 export async function load({ params }) {
 	let fuelprices;
 
-	await fetch('http://api.fuelprices.box')
+	await fetch('http://fuelprices-api:30011')
 		.then((res) => (fuelprices = res.json()))
 		.catch(
 			(error) =>
