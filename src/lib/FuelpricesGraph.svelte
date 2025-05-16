@@ -235,7 +235,7 @@
 	});
 </script>
 
-<div class="my-2 md:my-4 grid grid-cols-2 md:grid-cols-4">
+<div class="my-2 grid grid-cols-2 md:my-4 md:grid-cols-4">
 	<PriceChange title="Avanti St. Pölten" label="avanti" data={[...fuelprices].filter(daysFilter)} />
 	<PriceChange title="Jet St. Pölten" label="jet" data={[...fuelprices].filter(daysFilter)} />
 	<PriceChange
