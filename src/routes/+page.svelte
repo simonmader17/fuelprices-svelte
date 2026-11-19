@@ -1,8 +1,15 @@
 <script lang="ts">
 	import FuelpricesGraph from '$lib/FuelpricesGraph.svelte';
 	import { onMount } from 'svelte';
+	import { env } from '$env/dynamic/public';
 
 	export let data: any;
+
+	// Set at runtime on the container; the subscribe button is hidden if either is missing
+	const ntfyLink =
+		env.PUBLIC_NTFY_URL && env.PUBLIC_NTFY_TOPIC
+			? `${env.PUBLIC_NTFY_URL.replace(/\/+$/, '')}/${encodeURIComponent(env.PUBLIC_NTFY_TOPIC)}`
+			: null;
 	let fuelprices = data.fuelprices;
 
 	let days: number = 7; // dirty solution for default value;#
@@ -59,16 +66,35 @@
 		<label><input type="radio" bind:group={days} value={0} />Gesamt</label>
 	</div>
 
-	<div class="flex justify-center">
-		<a
-			href="https://t.me/simonmader_fuelprices_bot"
-			target="_blank"
-			class="m-1 flex items-center gap-2 rounded-xl bg-gradient-to-br from-blue-300 to-[#2097D4] p-2 text-white shadow-lg shadow-blue-400 drop-shadow-xl transition-all active:scale-90 md:m-4 md:p-4 md:text-xl"
-		>
-			<img src="telegram.webp" alt="Telegram Logo" class="h-10 drop-shadow-xl md:h-12" />
-			<p>Telegram Bot</p>
-		</a>
-	</div>
+	{#if ntfyLink}
+		<div class="flex justify-center">
+			<a
+				href={ntfyLink}
+				target="_blank"
+				rel="noopener"
+				title="Öffnet das ntfy-Topic: dort Benachrichtigungen bei neuen Wochen- und Monatstiefs/-hochs abonnieren"
+				class="m-1 flex items-center gap-2 rounded-xl bg-gradient-to-br from-emerald-300 to-[#338574] p-2 text-white shadow-lg shadow-emerald-500 drop-shadow-xl transition-all active:scale-90 md:m-4 md:p-4 md:text-xl"
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+					fill="currentColor"
+					aria-hidden="true"
+					class="h-10 w-10 drop-shadow-xl md:h-12 md:w-12"
+				>
+					<path
+						d="M5.85 3.5a.75.75 0 00-1.117-1 9.719 9.719 0 00-2.348 4.876.75.75 0 001.479.248A8.219 8.219 0 015.85 3.5zM19.267 2.5a.75.75 0 10-1.118 1 8.22 8.22 0 011.987 4.124.75.75 0 001.48-.248A9.72 9.72 0 0019.266 2.5z"
+					/>
+					<path
+						fill-rule="evenodd"
+						d="M12 2.25A6.75 6.75 0 005.25 9v.75a8.217 8.217 0 01-2.119 5.52.75.75 0 00.298 1.206c1.544.57 3.16.99 4.831 1.243a3.75 3.75 0 107.48 0 24.583 24.583 0 004.83-1.244.75.75 0 00.298-1.205 8.217 8.217 0 01-2.118-5.52V9A6.75 6.75 0 0012 2.25zM9.75 18c0-.034 0-.067.002-.1a25.05 25.05 0 004.496 0l.002.1a2.25 2.25 0 11-4.5 0z"
+						clip-rule="evenodd"
+					/>
+				</svg>
+				<p>Preisalarme abonnieren</p>
+			</a>
+		</div>
+	{/if}
 </main>
 
 <style lang="scss">
