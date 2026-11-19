@@ -32,10 +32,11 @@ Additionally, a small [notifier](https://github.com/simonmader17/fuelprices-bot)
 
 ## Docker
 
-### `docker-compose.yml`
+### `compose.yaml`
 
 ```yaml
 name: fuelprices-svelte
+
 services:
   fuelprices-svelte:
     image: simonmader17/fuelprices-svelte:latest
@@ -63,6 +64,7 @@ This is my complete Fuelprices application stack, consisting of [Collector](http
 
 ```yaml
 name: fuelprices
+
 services:
   db:
     image: postgres:15
@@ -75,63 +77,73 @@ services:
       PGDATA: /var/lib/postgresql/data
     volumes:
       - fuelprices-postgres-data:/var/lib/postgresql/data
+    networks:
+      - internal
 
   fuelprices-collector:
     image: simonmader17/fuelprices-collector:latest
     container_name: fuelprices-collector
     restart: always
+    depends_on:
+      - db
     environment:
       TZ: Europe/Vienna
       DATABASE_URL: db:5432
       DATABASE_USERNAME: ${DATABASE_USERNAME}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-    depends_on:
-      - db
+    networks:
+      - internal
 
   # container_name must stay "fuelprices-api": the web UI and notifier call http://fuelprices-api:30011
   fuelprices-api:
     image: simonmader17/fuelprices-api:latest
     container_name: fuelprices-api
     restart: always
+    depends_on:
+      - db
     environment:
       DATABASE_URL: db:5432
       DATABASE_USERNAME: ${DATABASE_USERNAME}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
     ports:
       - 30011:30011
-    depends_on:
-      - db
+    networks:
+      - internal
 
   fuelprices-svelte:
     image: simonmader17/fuelprices-svelte:latest
     container_name: fuelprices-svelte
     restart: always
+    depends_on:
+      - fuelprices-api
     environment:
       # Used by the "Preisalarme abonnieren" button; it is hidden if either is empty
       PUBLIC_NTFY_URL: ${NTFY_PUBLIC_URL}
       PUBLIC_NTFY_TOPIC: ${NTFY_TOPIC}
     ports:
       - 30012:30012
-    depends_on:
-      - fuelprices-api
+    networks:
+      - internal
 
   fuelprices-bot:
     image: simonmader17/fuelprices-bot:latest
     container_name: fuelprices-bot
     restart: always
+    depends_on:
+      - fuelprices-api
+      - ntfy
     environment:
       NTFY_URL: http://ntfy
       NTFY_TOPIC: ${NTFY_TOPIC}
       NTFY_TOKEN: ${NTFY_TOKEN}
-    depends_on:
-      - fuelprices-api
-      - ntfy
+    networks:
+      - internal
 
   ntfy:
     image: binwiederhier/ntfy:v2.11.0
+    command: serve
     container_name: fuelprices-ntfy
     restart: always
-    command: serve
     environment:
       TZ: Europe/Vienna
       NTFY_BASE_URL: ${NTFY_PUBLIC_URL}
@@ -140,10 +152,15 @@ services:
       # Anyone may subscribe, only users/tokens with write access may publish
       NTFY_AUTH_DEFAULT_ACCESS: read-only
       NTFY_BEHIND_PROXY: "true"
-    volumes:
-      - fuelprices-ntfy-data:/var/lib/ntfy
     ports:
       - 30013:80
+    volumes:
+      - fuelprices-ntfy-data:/var/lib/ntfy
+    networks:
+      - internal
+
+networks:
+  internal:
 
 volumes:
   fuelprices-postgres-data:
