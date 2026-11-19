@@ -22,7 +22,7 @@
 
 ## Description
 
-My Fuelprices application consists of a Python webscraper that reads the current fuel prices of the Avanti and Jet gas stations in St. Pölten every hour and stores them in a PostgreSQL database.
+My Fuelprices application consists of a Python [collector](https://github.com/simonmader17/fuelprices-collector) that fetches the current fuel prices of four gas stations around St. Pölten from the official E-Control API every 30 minutes and stores them in a PostgreSQL database.
 
 The [backend](https://github.com/simonmader17/fuelprices-api) is a Java Spring RESTful web service and the frontend I implemented with Svelte.
 
