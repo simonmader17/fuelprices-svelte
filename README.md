@@ -41,6 +41,7 @@ services:
   fuelprices-svelte:
     image: simonmader17/fuelprices-svelte:latest
     container_name: fuelprices-svelte
+    user: ${PUID}:${PGID}
     restart: always
     environment:
       PUBLIC_NTFY_URL: https://ntfy.example.com
@@ -69,6 +70,7 @@ services:
   db:
     image: postgres:15
     container_name: fuelprices-postgres
+    user: ${PUID}:${PGID}
     restart: always
     environment:
       POSTGRES_DB: fuelprices
@@ -76,13 +78,14 @@ services:
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       PGDATA: /var/lib/postgresql/data
     volumes:
-      - fuelprices-postgres-data:/var/lib/postgresql/data
+      - ./data/postgres:/var/lib/postgresql/data
     networks:
       - internal
 
   fuelprices-collector:
     image: simonmader17/fuelprices-collector:latest
     container_name: fuelprices-collector
+    user: ${PUID}:${PGID}
     restart: always
     depends_on:
       - db
@@ -98,6 +101,7 @@ services:
   fuelprices-api:
     image: simonmader17/fuelprices-api:latest
     container_name: fuelprices-api
+    user: ${PUID}:${PGID}
     restart: always
     depends_on:
       - db
@@ -113,6 +117,7 @@ services:
   fuelprices-svelte:
     image: simonmader17/fuelprices-svelte:latest
     container_name: fuelprices-svelte
+    user: ${PUID}:${PGID}
     restart: always
     depends_on:
       - fuelprices-api
@@ -128,6 +133,7 @@ services:
   fuelprices-bot:
     image: simonmader17/fuelprices-bot:latest
     container_name: fuelprices-bot
+    user: ${PUID}:${PGID}
     restart: always
     depends_on:
       - fuelprices-api
@@ -143,6 +149,7 @@ services:
     image: binwiederhier/ntfy:v2.11.0
     command: serve
     container_name: fuelprices-ntfy
+    user: ${PUID}:${PGID}
     restart: always
     environment:
       TZ: Europe/Vienna
@@ -155,16 +162,12 @@ services:
     ports:
       - 30013:80
     volumes:
-      - fuelprices-ntfy-data:/var/lib/ntfy
+      - ./data/ntfy:/var/lib/ntfy
     networks:
       - internal
 
 networks:
   internal:
-
-volumes:
-  fuelprices-postgres-data:
-  fuelprices-ntfy-data:
 ```
 
 `.env` next to it:
@@ -174,12 +177,22 @@ volumes:
 DATABASE_USERNAME=fuelprices
 DATABASE_PASSWORD=change-me
 
+# uid/gid all containers run as; must own ./data (on the server: id -u simon / id -g simon)
+PUID=1000
+PGID=1000
+
 # Public URL of the ntfy server (what browsers and phones use, e.g. behind a reverse proxy to port 30013)
 NTFY_PUBLIC_URL=https://ntfy.example.com
 # Topic the notifier publishes to and the web UI's subscribe button links to
 NTFY_TOPIC=fuelprices
 # Access token with write access to NTFY_TOPIC; create it after the first start (see fuelprices-bot/README.md)
 NTFY_TOKEN=
+```
+
+Create the data folders before the first start, owned by the user the containers run as (otherwise Docker creates them owned by root and Postgres/ntfy can't write to them):
+
+```sh
+mkdir -p data/postgres data/ntfy
 ```
 
 After the first start, create the notifier's ntfy token as described in the [fuelprices-bot README](https://github.com/simonmader17/fuelprices-bot#ntfy-token-setup).
