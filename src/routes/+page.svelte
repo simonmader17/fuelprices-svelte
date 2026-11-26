@@ -73,24 +73,9 @@
 				target="_blank"
 				rel="noopener"
 				title="Öffnet das ntfy-Topic: dort Benachrichtigungen bei neuen Wochen- und Monatstiefs/-hochs abonnieren"
-				class="m-1 flex items-center gap-2 rounded-xl bg-gradient-to-br from-emerald-300 to-[#338574] p-2 text-white shadow-lg shadow-emerald-500 drop-shadow-xl transition-all active:scale-90 md:m-4 md:p-4 md:text-xl"
+				class="m-1 flex items-center gap-2 rounded-xl bg-gradient-to-br from-[#378d7c] to-[#4fb7a2] p-2 text-white shadow-lg shadow-[#4fb7a2] drop-shadow-xl transition-all active:scale-90 md:m-4 md:p-4 md:text-xl"
 			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="currentColor"
-					aria-hidden="true"
-					class="h-10 w-10 drop-shadow-xl md:h-12 md:w-12"
-				>
-					<path
-						d="M5.85 3.5a.75.75 0 00-1.117-1 9.719 9.719 0 00-2.348 4.876.75.75 0 001.479.248A8.219 8.219 0 015.85 3.5zM19.267 2.5a.75.75 0 10-1.118 1 8.22 8.22 0 011.987 4.124.75.75 0 001.48-.248A9.72 9.72 0 0019.266 2.5z"
-					/>
-					<path
-						fill-rule="evenodd"
-						d="M12 2.25A6.75 6.75 0 005.25 9v.75a8.217 8.217 0 01-2.119 5.52.75.75 0 00.298 1.206c1.544.57 3.16.99 4.831 1.243a3.75 3.75 0 107.48 0 24.583 24.583 0 004.83-1.244.75.75 0 00.298-1.205 8.217 8.217 0 01-2.118-5.52V9A6.75 6.75 0 0012 2.25zM9.75 18c0-.034 0-.067.002-.1a25.05 25.05 0 004.496 0l.002.1a2.25 2.25 0 11-4.5 0z"
-						clip-rule="evenodd"
-					/>
-				</svg>
+				<img src="ntfy.png" alt="ntfy Logo" class="h-10 drop-shadow-xl md:h-12" />
 				<p>Preisalarme abonnieren</p>
 			</a>
 		</div>
