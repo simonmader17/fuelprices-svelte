@@ -11,3 +11,11 @@ node_modules
 pnpm-lock.yaml
 package-lock.json
 yarn.lock
+
+# Kept identical to the other repos / the full stack compose file
+.github/
+*.md
+
+# Local tool config
+.claude/
+.mcp.json

@@ -1,6 +1,6 @@
 <script lang="ts">
-	export let title: String;
-	export let label: String;
+	export let title: string;
+	export let label: string;
 	export let data: any;
 
 	$: oldest = [...data.map((f: any) => f[`${label}`])].find((p) => p != null) ?? '-,---';

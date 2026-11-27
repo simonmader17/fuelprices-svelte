@@ -1,5 +1,5 @@
 /** @type {import('./$types').PageServerLoad} */
-import { env } from '$env/dynamic/private';
+import { API_URL } from '$app/env/private';
 import resolveConfig from 'tailwindcss/resolveConfig';
 import configFile from '../../tailwind.config';
 
@@ -17,12 +17,12 @@ const sampleData = [
 	{ timestamp: '2023-07-14T13:00:00Z', avanti: 1.51, jet: 1.53 }
 ];
 
-export async function load({ params }) {
+export async function load() {
 	let fuelprices = sampleData;
 
-	if (env.API_URL) {
+	if (API_URL) {
 		try {
-			const res = await fetch(env.API_URL);
+			const res = await fetch(API_URL);
 			fuelprices = await res.json();
 		} catch {
 			fuelprices = sampleData;

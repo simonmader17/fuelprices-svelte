@@ -1,14 +1,14 @@
 <script lang="ts">
-	import FuelpricesGraph from '$lib/FuelpricesGraph.svelte';
+	import FuelpricesGraph from '#lib/FuelpricesGraph.svelte';
 	import { onMount } from 'svelte';
-	import { env } from '$env/dynamic/public';
+	import { PUBLIC_NTFY_URL, PUBLIC_NTFY_TOPIC } from '$app/env/public';
 
 	export let data: any;
 
 	// Set at runtime on the container; the subscribe button is hidden if either is missing
 	const ntfyLink =
-		env.PUBLIC_NTFY_URL && env.PUBLIC_NTFY_TOPIC
-			? `${env.PUBLIC_NTFY_URL.replace(/\/+$/, '')}/${encodeURIComponent(env.PUBLIC_NTFY_TOPIC)}`
+		PUBLIC_NTFY_URL && PUBLIC_NTFY_TOPIC
+			? `${PUBLIC_NTFY_URL.replace(/\/+$/, '')}/${encodeURIComponent(PUBLIC_NTFY_TOPIC)}`
 			: null;
 	let fuelprices = data.fuelprices;
 
@@ -92,26 +92,41 @@
 	}
 
 	h1 {
-		@apply inline-block bg-gradient-to-br from-primary to-secondary bg-clip-text text-center text-5xl font-[800] text-transparent  drop-shadow-lg dark:from-primary-dark dark:to-secondary-dark md:text-7xl;
+		@apply inline-block bg-gradient-to-br from-primary to-secondary bg-clip-text text-center text-5xl font-[800] text-transparent drop-shadow-lg md:text-7xl;
 	}
 
 	.days-select {
 		@apply flex select-none justify-between gap-2 md:gap-4;
 
 		& > label {
-			@apply w-full cursor-pointer flex-wrap rounded-xl bg-grid px-2 py-4 text-center drop-shadow-xl transition-all dark:bg-grid-dark dark:shadow-xl md:p-8 md:text-2xl;
+			@apply w-full cursor-pointer flex-wrap rounded-xl bg-grid px-2 py-4 text-center drop-shadow-xl transition-all md:p-8 md:text-2xl;
 
 			& > input {
 				@apply hidden;
 			}
 
 			&:has(> input:checked) {
-				@apply bg-gradient-to-br from-primary to-secondary font-[800] text-grid shadow-xl shadow-secondary/40 dark:from-primary-dark dark:to-secondary-dark dark:text-background-dark dark:shadow-secondary-dark/40;
+				@apply bg-gradient-to-br from-primary to-secondary font-[800] text-grid shadow-xl shadow-secondary/40;
 			}
 
 			&:active {
 				@apply scale-90;
 			}
 		}
+	}
+	/*
+	 * Dark mode: the `dark` class sits on <html>, outside this component. Svelte 5 scopes selectors
+	 * inside :is(), so Tailwind's `dark:` variant can't be used in @apply here; use :global(.dark).
+	 */
+	:global(.dark) h1 {
+		@apply from-primary-dark to-secondary-dark;
+	}
+
+	:global(.dark) .days-select > label {
+		@apply bg-grid-dark shadow-xl;
+	}
+
+	:global(.dark) .days-select > label:has(> input:checked) {
+		@apply from-primary-dark to-secondary-dark text-background-dark shadow-secondary-dark/40;
 	}
 </style>

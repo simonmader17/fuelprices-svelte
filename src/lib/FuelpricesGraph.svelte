@@ -2,15 +2,15 @@
 	import PriceChange from './PriceChange.svelte';
 
 	import { afterUpdate, onMount } from 'svelte';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import Chart from 'chart.js/auto';
 	import 'chartjs-adapter-moment';
 
 	export let darkMode: boolean;
-	const tailwindConfig = $page.data.tailwindConfig;
+	const tailwindConfig = page.data.tailwindConfig;
 
 	Chart.defaults.font.family = '"Raleway", sans-serif';
-	Chart.defaults.font.weight = '500';
+	Chart.defaults.font.weight = 500;
 	Chart.defaults.color = 'rgb(107 114 128)';
 	Chart.defaults.plugins.tooltip.titleColor = 'rgb(30, 41, 59)';
 	Chart.defaults.plugins.tooltip.bodyColor = 'rgb(30, 41, 59)';
@@ -30,6 +30,8 @@
 	let ctx;
 	let chartCanvas: any;
 
+	// recreated whenever `days` changes, so the price tiles in the template re-filter
+	// eslint-disable-next-line svelte/no-reactive-functions
 	$: daysFilter = (f: any) => {
 		if (days == undefined || days == 0) {
 			return true;
@@ -183,6 +185,7 @@
 							label: (tooltipItem) => {
 								let gasStation = tooltipItem.dataset.label;
 								let gasPrice = tooltipItem.parsed.y;
+								if (gasPrice == null) return ' ' + gasStation + ': -';
 								let formattedPrice =
 									gasPrice.toLocaleString('de', {
 										minimumFractionDigits: 3,
@@ -196,11 +199,12 @@
 						labels: {
 							generateLabels: (chart) => {
 								return chart.data.datasets.map((dataset, index) => ({
-									text: dataset.label,
+									text: dataset.label ?? '',
 									borderRadius: 5,
 									datasetIndex: index,
-									fillStyle: dataset.borderColor,
-									fontColor: dataset.borderColor,
+									// all datasets use a plain color string as borderColor
+									fillStyle: dataset.borderColor as string,
+									fontColor: dataset.borderColor as string,
 									hidden: !chart.isDatasetVisible(index),
 									// lineCap: 'null',
 									// lineDash: [],
@@ -247,7 +251,7 @@
 </div>
 
 <div class="my-2 rounded-xl bg-grid p-4 drop-shadow-xl dark:bg-grid-dark md:my-4">
-	<canvas bind:this={chartCanvas} id="my-chart" class="w-full" />
+	<canvas bind:this={chartCanvas} id="my-chart" class="w-full"></canvas>
 </div>
 
 <svelte:window on:resize={() => chart.resize()} />
