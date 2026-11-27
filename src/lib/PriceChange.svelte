@@ -46,7 +46,7 @@
 					timeStyle: 'short'
 				})})
 			{:else}
-				(Keine Daten)
+				(--:--)
 			{/if}
 		</span>
 	</p>
