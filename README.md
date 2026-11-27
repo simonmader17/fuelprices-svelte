@@ -44,6 +44,7 @@ services:
     user: ${PUID}:${PGID}
     restart: always
     environment:
+      API_URL: http://<api-host>:30011
       PUBLIC_NTFY_URL: https://ntfy.example.com
       PUBLIC_NTFY_TOPIC: fuelprices
     ports:
@@ -52,10 +53,11 @@ services:
 
 | Variable | Description |
 |---|---|
+| `API_URL` | URL of the [API](https://github.com/simonmader17/fuelprices-api), fetched server-side; if unset or unreachable, sample data is shown |
 | `PUBLIC_NTFY_URL` | Public URL of the ntfy server |
 | `PUBLIC_NTFY_TOPIC` | ntfy topic with the price alerts |
 
-Both are read at runtime. If both are set, the page shows a "Preisalarme abonnieren" button that opens the topic in the ntfy web app, where visitors can subscribe in the browser or in the ntfy app. If either is missing, the button is hidden.
+All are read at runtime. If both ntfy variables are set, the page shows a "Preisalarme abonnieren" button that opens the topic in the ntfy web app, where visitors can subscribe in the browser or in the ntfy app. If either is missing, the button is hidden.
 
 ### Fuelprices Application Stack
 
@@ -97,7 +99,7 @@ services:
     networks:
       - internal
 
-  # container_name must stay "fuelprices-api": the web UI and notifier call http://fuelprices-api:30011
+  # The web UI and notifier reach the API via API_URL (http://fuelprices-api:30011)
   fuelprices-api:
     image: simonmader17/fuelprices-api:latest
     container_name: fuelprices-api
@@ -122,6 +124,7 @@ services:
     depends_on:
       - fuelprices-api
     environment:
+      API_URL: http://fuelprices-api:30011
       # Used by the "Preisalarme abonnieren" button; it is hidden if either is empty
       PUBLIC_NTFY_URL: ${NTFY_PUBLIC_URL}
       PUBLIC_NTFY_TOPIC: ${NTFY_TOPIC}
@@ -139,6 +142,7 @@ services:
       - fuelprices-api
       - ntfy
     environment:
+      API_URL: http://fuelprices-api:30011
       NTFY_URL: http://ntfy
       NTFY_TOPIC: ${NTFY_TOPIC}
       NTFY_TOKEN: ${NTFY_TOKEN}
