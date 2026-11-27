@@ -32,6 +32,10 @@ Additionally, a small [notifier](https://github.com/simonmader17/fuelprices-bot)
 
 ## Docker
 
+GitHub Actions builds the image on every push to `main` and publishes it to `ghcr.io/simonmader17/fuelprices-svelte` (tags `latest` and `sha-<commit>`). To build it locally: `docker build -t ghcr.io/simonmader17/fuelprices-svelte .`
+
+Update a running stack with `docker compose pull && docker compose up -d`.
+
 ### `compose.yaml`
 
 ```yaml
@@ -39,7 +43,7 @@ name: fuelprices-svelte
 
 services:
   fuelprices-svelte:
-    image: simonmader17/fuelprices-svelte:latest
+    image: ghcr.io/simonmader17/fuelprices-svelte:latest
     container_name: fuelprices-svelte
     user: ${PUID}:${PGID}
     restart: always
@@ -85,7 +89,7 @@ services:
       - internal
 
   fuelprices-collector:
-    image: simonmader17/fuelprices-collector:latest
+    image: ghcr.io/simonmader17/fuelprices-collector:latest
     container_name: fuelprices-collector
     user: ${PUID}:${PGID}
     restart: always
@@ -101,7 +105,7 @@ services:
 
   # The web UI and notifier reach the API via API_URL (http://fuelprices-api:30011)
   fuelprices-api:
-    image: simonmader17/fuelprices-api:latest
+    image: ghcr.io/simonmader17/fuelprices-api:latest
     container_name: fuelprices-api
     user: ${PUID}:${PGID}
     restart: always
@@ -117,7 +121,7 @@ services:
       - internal
 
   fuelprices-svelte:
-    image: simonmader17/fuelprices-svelte:latest
+    image: ghcr.io/simonmader17/fuelprices-svelte:latest
     container_name: fuelprices-svelte
     user: ${PUID}:${PGID}
     restart: always
@@ -134,7 +138,7 @@ services:
       - internal
 
   fuelprices-bot:
-    image: simonmader17/fuelprices-bot:latest
+    image: ghcr.io/simonmader17/fuelprices-bot:latest
     container_name: fuelprices-bot
     user: ${PUID}:${PGID}
     restart: always
