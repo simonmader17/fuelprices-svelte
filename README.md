@@ -59,7 +59,7 @@ Both are read at runtime. If both are set, the page shows a "Preisalarme abonnie
 
 ### Fuelprices Application Stack
 
-This is my complete Fuelprices application stack, consisting of [Collector](https://github.com/simonmader17/fuelprices-collector) + [API](https://github.com/simonmader17/fuelprices-api) + [Web UI](https://github.com/simonmader17/fuelprices-svelte) + [ntfy Notifier](https://github.com/simonmader17/fuelprices-bot) + a bundled Postgres and a self-hosted [ntfy](https://ntfy.sh) server. The same file is `compose.yaml` in [fuelprices-dev](https://github.com/simonmader17/fuelprices-dev).
+This is my complete Fuelprices application stack, consisting of [Collector](https://github.com/simonmader17/fuelprices-collector) + [API](https://github.com/simonmader17/fuelprices-api) + [Web UI](https://github.com/simonmader17/fuelprices-svelte) + [ntfy Notifier](https://github.com/simonmader17/fuelprices-bot) + a bundled Postgres and a self-hosted [ntfy](https://ntfy.sh) server.
 
 `compose.yaml`:
 
